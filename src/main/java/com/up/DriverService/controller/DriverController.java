@@ -1,5 +1,6 @@
 package com.up.DriverService.controller;
 
+import com.up.DriverService.dto.DriverDto;
 import com.up.DriverService.model.Driver;
 import com.up.DriverService.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class DriverController {
     @PatchMapping
     public ResponseEntity<Driver> updateDriver(@RequestBody Driver driver){
         return new ResponseEntity<>(driverService.update(driver), HttpStatus.OK);
+    }
+
+    @GetMapping("/info/{phone_number}")
+    public ResponseEntity<Optional<DriverDto>> getInfoDriver(@PathVariable("phone_number") String phone_number){
+        return new ResponseEntity<>(driverService.getDriverInfoByPhoneNumber(phone_number), HttpStatus.OK);
     }
 }
