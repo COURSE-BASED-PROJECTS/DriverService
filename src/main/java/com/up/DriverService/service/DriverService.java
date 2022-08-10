@@ -4,7 +4,6 @@ import com.up.DriverService.dto.DriverDto;
 import com.up.DriverService.model.Driver;
 import com.up.DriverService.model.Taxi;
 import com.up.DriverService.repository.DriverRepository;
-import com.up.DriverService.repository.TaxiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,12 +15,9 @@ import java.util.Optional;
 public class DriverService {
     private DriverRepository driverRepository;
 
-    private TaxiRepository taxiRepository;
-
     @Autowired
-    public DriverService(DriverRepository driverRepository, TaxiRepository taxiRepository) {
+    public DriverService(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
-        this.taxiRepository = taxiRepository;
     }
 
     public List<Driver> findAll() {
@@ -42,9 +38,12 @@ public class DriverService {
     public Optional<DriverDto> getDriverInfoByPhoneNumber(String phone_number) {
         Driver d = driverRepository.findByPhoneNumber(phone_number);
 
-        Optional<Taxi> driverCar = taxiRepository.findByTaxiId(d.getTaxi_id());
+        String uri = "http://localhost:9090/api/taxi/" + d.getTaxi_id();
+        RestTemplate restTemplate = new RestTemplate();
+        Taxi driverCar = restTemplate.getForObject(uri, Taxi.class);
+        //System.out.println(driverCar.toString());
 
-        DriverDto rs = new DriverDto(d.getDriverName(), driverCar.get().getPlate(), driverCar.get().getCarType() , d.getBalance(), d.getRide_count());
+        DriverDto rs = new DriverDto(d.getDriverName(), driverCar.getPlate(), driverCar.getCarType() , d.getBalance(), d.getRide_count());
 
         return Optional.of(rs);
     }
