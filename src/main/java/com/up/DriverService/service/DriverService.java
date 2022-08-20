@@ -44,7 +44,7 @@ public class DriverService {
         Taxi driverCar = restTemplate.getForObject(uri, Taxi.class);
         //System.out.println(driverCar.toString());
 
-        DriverDto rs = new DriverDto(d.getDriverName(), driverCar.getTaxiName(), driverCar.getPlate(), driverCar.getCarType(), d.getBalance(), d.getRide_count());
+        DriverDto rs = new DriverDto(d.getDriverId(), d.getDriverName(), driverCar.getTaxiName(), driverCar.getPlate(), driverCar.getCarType(), d.getBalance(), d.getRide_count());
 
         return Optional.of(rs);
     }
