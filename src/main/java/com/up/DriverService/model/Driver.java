@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name="drivers")
+@Table(name="driver")
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -31,16 +31,10 @@ public class Driver {
     @Column(name = "taxi_id")
     public int taxi_id;
 
-    @Column(name = "driver_lat")
-    public double driver_lat;
-
-    @Column(name = "driver_lng")
-    public double driver_lng;
-
     public Driver() {
     }
 
-    public Driver(Integer driverId, String driverName, String identification, String phoneNumber, Long balance, int ride_count, int taxi_id, double driver_lat, double driver_lng) {
+    public Driver(Integer driverId, String driverName, String identification, String phoneNumber, Long balance, int ride_count, int taxi_id) {
         this.driverId = driverId;
         this.driverName = driverName;
         this.identification = identification;
@@ -48,8 +42,6 @@ public class Driver {
         this.balance = balance;
         this.ride_count = ride_count;
         this.taxi_id = taxi_id;
-        this.driver_lat = driver_lat;
-        this.driver_lng = driver_lng;
     }
 
     public Integer getDriverId() {
@@ -78,13 +70,5 @@ public class Driver {
 
     public int getTaxi_id() {
         return taxi_id;
-    }
-
-    public double getDriver_lat() {
-        return driver_lat;
-    }
-
-    public double getDriver_lng() {
-        return driver_lng;
     }
 }
