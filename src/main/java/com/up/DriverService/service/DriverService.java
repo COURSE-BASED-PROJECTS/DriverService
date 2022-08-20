@@ -48,4 +48,8 @@ public class DriverService {
 
         return Optional.of(rs);
     }
+
+    public String findNameByDriverId(Integer taxiId) {
+        return this.findByDriverId(taxiId).get().getDriverName();
+    }
 }

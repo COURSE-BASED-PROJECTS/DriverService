@@ -31,6 +31,12 @@ public class DriverController {
         return new ResponseEntity<>(driverService.findByDriverId(taxiId), HttpStatus.OK);
     }
 
+    @GetMapping("/name/{id}")
+    public ResponseEntity<String> getDriverNameById(@PathVariable("id") Integer taxiId){
+        return new ResponseEntity<>(driverService.findNameByDriverId(taxiId), HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity<Driver> addNewDriver(@RequestBody Driver driver){
         return new ResponseEntity<>(driverService.addNew(driver), HttpStatus.OK);
